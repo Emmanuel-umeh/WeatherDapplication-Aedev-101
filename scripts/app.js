@@ -155,10 +155,10 @@ const updateUI = (data) => {
 };
 
 const updateCity = async (city) => {
-  $('#loading').fadeIn()
+  $('.loading').fadeIn()
   const cityDets = await getCity(city);
   const weather = await getWeather(cityDets.Key);
-  $('#loading').fadeOut()
+  $('.loading').fadeOut()
   return { cityDets, weather };
   
  
@@ -166,11 +166,11 @@ const updateCity = async (city) => {
 };
 
 window.addEventListener('load', async() =>{
-  $('#loading').fadeIn()
+  $('.loading').fadeIn()
   client = await Ae.Aepp()
   $('#getWeather').hide()
   $('#signUp').fadeIn()
-  $('#loading').fadeOut()
+  $('.loading').fadeOut()
 
   console.log("THis is printing out client", client)
   userAddress =  client.address 
@@ -186,21 +186,21 @@ window.addEventListener('load', async() =>{
 $('#submitReg').click(async(e)=>{
  
   e.preventDefault()
-  $('#loading').fadeIn()
+  $('.loading').fadeIn()
   mail= $('#emailReg').val()
   console.log(mail)
   await contractCall('addUser', [mail])
 
   $('#getWeather').fadeIn()
   $('#signUp').fadeOut()
-  $('#loading').fadeOut()
+  $('.loading').fadeOut()
 
 } )
 
 cityForm.addEventListener('submit',async e => {
   
   // prevent default action
-  $('#loading').fadeIn()
+  $('.loading').fadeIn()
   e.preventDefault();
 
 
@@ -232,15 +232,15 @@ cityForm.addEventListener('submit',async e => {
 
   // set local storage
   localStorage.setItem('city', city);
-  $('#loading').fadeOut()
+  $('.loading').fadeOut()
 
 });
 
 if(localStorage.getItem('city')){
-  $('#loading').fadeIn()
+  $('.loading').fadeIn()
   updateCity(localStorage.getItem('city'))
     .then(data => updateUI(data))
     .catch(err => console.log(err));
-    $('#loading').fadeOut()
+    $('.loading').fadeOut()
 }
 
