@@ -189,7 +189,12 @@ $('#submitReg').click(async(e)=>{
   $('.loading').fadeIn()
   mail= $('#emailReg').val()
   console.log(mail)
-  await contractCall('addUser', [mail], 0)
+  newuser = await contractCall('addUser', [mail], 0)
+  UserArray.push({
+    userAddress : newUser.callerAddress,
+    numberOfSearches  : newUser.numberOfSearches,
+    id : newUser.id
+  })
 
   $('#getWeather').fadeIn()
   $('#signUp').fadeOut()
@@ -201,22 +206,12 @@ cityForm.addEventListener('submit',async(e) => {
   
   // prevent default action
   $('.loading').fadeIn()
-  e.preventDefault();
+  e.preventDefault()
 
 
   
   
   await contractCall('getWeather', [], 1000000).catch(e => console.error(e))
-
-  newUser = await contractCall('addUser', [], 0)
-
-  UserArray.push({
-    userAddress : newUser.callerAddress,
-    numberOfSearches  : newUser.numberOfSearches,
-    id : newUser.id
-  })
-
-
   
   
   // get city value
