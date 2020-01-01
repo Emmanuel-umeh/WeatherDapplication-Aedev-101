@@ -3,15 +3,15 @@
 	 background-color: #3b3b3b;
 }
  .loading {
-	 position: absolute;
-	 top: 50%;
+	 position: fixed;
+	 top: 20%;
 	 left: 50%;
 }
  .loading .bullet {
 	 position: absolute;
 	 padding: 5px;
 	 border-radius: 50%;
-	 background: white;
+	 background: #65a3ff;
 	 animation: animIn 1s ease-in-out 0s infinite;
 }
  .loading .bullet:nth-child(1) {
