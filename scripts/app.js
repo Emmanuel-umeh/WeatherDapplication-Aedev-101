@@ -116,10 +116,7 @@ function renderUsers() {
 
   Mustache.parse(template);
 
-  var rendered = Mustache.render(template, {
-    UserArray
-    
-  });
+  var rendered = Mustache.render(template, {UserArray});
 
   $('#logs').html(rendered);
 
