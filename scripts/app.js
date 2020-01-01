@@ -184,13 +184,14 @@ window.addEventListener('load', async() =>{
   client = await Ae.Aepp()
 
   length = await callStatic('getTotalTx', [])
+  console.log(length)
 
   // Get list of people that have used the dapp
 
   console.log("Printing to console")
 
   for (let i = 1; i <= length; i++) {
-    user = callStatic('getUser', [i])
+    user = await callStatic('getUser', [i])
     UserArray.push({
       userAddress : user.callerAddress,
       owner : user.owner,
