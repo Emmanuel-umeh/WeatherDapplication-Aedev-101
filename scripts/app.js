@@ -73,7 +73,7 @@ payable contract Weather =
 
 `;
 
-const contractAddress = "ct_SZPbPxYe551an53BSY4v8Pb5RUrSJRLytfA1KNXfZgbcRRAyX";
+const contractAddress = "ct_8mEmWCAsM2QFSBMJ8DQJcuRXCoPYnRrsJ9cXDhNJ6NXFwWcLm";
 var client = null;
 UserArray = []
 
