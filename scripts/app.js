@@ -191,6 +191,8 @@ window.addEventListener('load', async() =>{
   console.log("Printing to console")
 
   for (let i = 1; i <= length; i++) {
+    $('.loading').fadeIn()
+
     
     user = await callStatic('getUser', [i])
     UserArray.push({
@@ -199,13 +201,12 @@ window.addEventListener('load', async() =>{
       numberOfSearches  : user.numberOfSearches,
       id : user.id
     })
-    
-  
 
+    renderUsers();
+    $('.loading').fadeOut()
+     }
 
-  }
-
-  renderUsers();
+ 
 
 
   // hide and show necessary divs
