@@ -195,6 +195,7 @@ window.addEventListener("load", async () => {
   console.log("rendered fine")
 
   renderUsers();
+  $("#logs").fadeIn();
   $(".loading").fadeOut();
 
   // hide and show necessary divs
