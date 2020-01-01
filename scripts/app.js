@@ -209,7 +209,7 @@ window.addEventListener("load", async () => {
 
 // Click of the register button
 
-$("#submitReg").click(async e => {
+$(".submitReg").click(async e => {
   e.preventDefault();
   $("#logs").fadeOut();
   $(".loading").fadeIn();
