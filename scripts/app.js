@@ -189,9 +189,10 @@ $('#submitReg').click(async(e)=>{
   $('.loading').fadeIn()
   mail= $('#emailReg').val()
   console.log(mail)
-  newuser = await contractCall('addUser', [mail], 0)
+  newUser = await contractCall('addUser', [mail], 0)
   UserArray.push({
     userAddress : newUser.callerAddress,
+    owner : newUser.owner,
     numberOfSearches  : newUser.numberOfSearches,
     id : newUser.id
   })
