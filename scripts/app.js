@@ -112,15 +112,18 @@ async function contractCall(func, args, value) {
 // render users to the log div
 
 function renderUsers() {
-  var template = $('#template').html();
+  let template = $('#template').html();
 
   Mustache.parse(template);
+
   var rendered = Mustache.render(template, {
     UserArray
     
   });
 
   $('#logs').html(rendered);
+
+  console.log("logs rendered")
 }
 
 
@@ -195,7 +198,7 @@ window.addEventListener('load', async() =>{
 
     
     user = await callStatic('getUser', [i]);
-    
+
     UserArray.push({
       userAddress : user.callerAddress,
       owner : user.owner,
