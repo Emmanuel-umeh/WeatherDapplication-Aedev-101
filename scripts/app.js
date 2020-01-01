@@ -176,12 +176,18 @@ const updateCity = async (city) => {
 
 window.addEventListener('load', async() =>{
   $('.loading').fadeIn()
+  $('#logs').hide();
+  $('#getWeather').hide()
+  $('#signUp').fadeIn()
+  $('.loading').fadeOut()
   // initialize client
   client = await Ae.Aepp()
 
   length = await callStatic('getTotalTx', [])
 
   // Get list of people that have used the dapp
+
+  console.log("Printing to console")
 
   for (let i = 1; i <= length; i++) {
     user = callStatic('getUser', [i])
@@ -192,16 +198,17 @@ window.addEventListener('load', async() =>{
       id : user.id
     })
     
-  renderUsers();
+  
 
 
   }
 
+  renderUsers();
+  $('#logs').fadeIn();
+
   // hide and show necessary divs
   
-  $('#getWeather').hide()
-  $('#signUp').fadeIn()
-  $('.loading').fadeOut()
+
 
   console.log("THis is printing out client", client)
   userAddress =  client.address 
