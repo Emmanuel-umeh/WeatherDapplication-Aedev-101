@@ -1,25 +1,47 @@
 // Aeternity requirements
 
 const contractSource = `
+//  uses sophia compiler greater than or equal to 4.0.0
+@compiler >= 4.0.0
+
 payable contract Weather = 
-    payable stateful entrypoint getWeather() = 
+    // type string = s
+    // type int = i
+    // type address = a
+    
+    
 
-        let owner  = ak_2E68PfRKne6kcJ8YkthNQChGCsuDQ5oYBu6X1zJSTRMoHKDajX
-        Chain.spend(owner,1000000)
 
+    // Emits an avent
+    datatype event =
+      FirstEvent(int, string)
 
     record user = {
         id : int,
         callerAddress : address,
+        owner : string,
         numberOfSearches : int}
 
     record state = {
         users : map(int,user),
-        total : int}
+        total : int,
+        ownerAddress : address}
 
 
 
-    entrypoint init() ={users = {}, total =0}
+
+
+    entrypoint init() ={users = {}, total =0, ownerAddress= Call.caller }
+
+    payable stateful entrypoint getWeather() = 
+        // Requires that the user has enough AE to call the function
+
+        require(Chain.balance(Call.caller) > 1000000, "You dont have enough ae")
+
+        // owner is the address that deployed the contract
+        let owner  = state.ownerAddress
+
+        Chain.spend(owner,1000000)
 
     entrypoint getTotalTx() =
         state.total
@@ -27,31 +49,31 @@ payable contract Weather =
     entrypoint getUser(index) =
         state.users[index] 
 
+    entrypoint getOwnerAddress() =
+        state.ownerAddress
+
 
     
 
-    stateful entrypoint addUser() =
+    stateful entrypoint addUser(mail : string) =
     
-
-        // let available = switch(Map.lookup(Call.caller, state.users))
-
-        // if(Map.member(Call.caller, state.users[total]))
-        //      put(state{users[id].numberOfSearches = 1})
-
-        // else
 
         let newUser = {
             callerAddress = Call.caller,
             id = getTotalTx()+1, 
-            numberOfSearches = 1}
+            owner = mail,
+
+            numberOfSearches = 0}
 
 
         let index = getTotalTx() + 1
         put(state{users[index] = newUser, total = index})
 
+        Chain.event(FirstEvent(index, mail))
+
 `;
 
-const contractAddress = "ct_zzNNFWpX2Vs9jN9LnLwawuJyyREjaLiPARABswxYEz8frbpX4";
+const contractAddress = "ct_SZPbPxYe551an53BSY4v8Pb5RUrSJRLytfA1KNXfZgbcRRAyX";
 var client = null;
 UserArray = []
 
@@ -146,7 +168,14 @@ const updateCity = async (city) => {
 window.addEventListener('load', async() =>{
   $('#loading').fadeIn()
   client = await Ae.Aepp()
+  $('#getWeather').hide()
+  $('#signUp').fadeIn()
   $('#loading').fadeOut()
+
+  console.log("THis is printing out client", client)
+  userAddress =  client.address 
+  console.log("Users Address", userAddress)
+
 
 
 }
@@ -154,11 +183,27 @@ window.addEventListener('load', async() =>{
 
 )
 
+$('#submitReg').click(async(e)=>{
+ 
+  e.preventDefault()
+  $('#loading').fadeIn()
+  mail= $('#emailReg').val()
+  console.log(mail)
+  await contractCall('addUser', [mail])
+
+  $('#getWeather').fadeIn()
+  $('#signUp').fadeOut()
+  $('#loading').fadeOut()
+
+} )
+
 cityForm.addEventListener('submit',async e => {
   
   // prevent default action
   $('#loading').fadeIn()
   e.preventDefault();
+
+
   
   
   await contractCall('getWeather', [], 1000000).catch(e => console.error(e))

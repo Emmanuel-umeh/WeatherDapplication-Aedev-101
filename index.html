@@ -22,19 +22,42 @@
           <div class="bullet"></div>
           <div class="bullet"></div>
         </div>
-    
-        <form class="change-location my-4 text-center text-muted">
-          <label for="city">Enter a location for weather information</label>
-          <input type="text" name="city" class="form-control p-4">
-        </form>
-        
-        <div class="card shadow-lg rounded d-none">
-          <img src="https://via.placeholder.com/400x300" class="time card-img-top">
-          <div class="icon bg-light mx-auto text-center">
-            <img src="" alt="">
-          </div>
-          <div class="text-muted text-uppercase text-center details"></div>
+
+        <div id="signUp">
+
+          <form action="#" method="post" name="sign up for beta form">
+            <div class="header">
+               <p>Sign Up</p>
+            </div>
+            <div class="description">
+              <p>Weather dapp will provide you all your accurate weather forecasts</p>
+            </div>
+            <div class="input">
+              <input type="text" class="button" id="emailReg" name="email" placeholder="NAME@EXAMPLE.COM">
+              <input type="submit" class="button" id="submitReg" value="SIGN UP">
+            </div> 
+          </form>
+
         </div>
+    
+        <div id="getWeather">
+
+          <form class="change-location my-4 text-center text-muted">
+            <label for="city">Enter a location for weather information</label>
+            <input type="text" name="city" class="form-control p-4">
+          </form>
+          
+          <div class="card shadow-lg rounded d-none">
+            <img src="https://via.placeholder.com/400x300" class="time card-img-top">
+            <div class="icon bg-light mx-auto text-center">
+              <img src="" alt="">
+            </div>
+            <div class="text-muted text-uppercase text-center details"></div>
+          </div>
+        </div>
+       
+<!-- data of people that have used the dapp -->
+        <div id="logs"></div>
         
         <footer class="bg-dark">
             <div class="row">
