@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="./css/loader.css">
   <link rel="stylesheet" href="./css/form.css">
+  <link rel="stylesheet" href="./css/card.css">
   <title>Weather Dapp</title>
 </head>
 <body>
@@ -86,8 +87,13 @@
 
           <h1 class="text-muted text-center my-4">Recent Logs</h1>
           {{#UserArray}}
-     
-      <div><h3> {{owner}}</h3></div>
+
+          <div class="card 1">
+            <div class="card_image"> <img src="https://i.redd.it/b3esnz5ra34y.jpg" /> </div>
+            <div class="card_title title-white">
+              <p>{{owner}}</p>
+            </div>
+          </div>
       <br>
       <br>
 

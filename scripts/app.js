@@ -179,7 +179,7 @@ window.addEventListener('load', async() =>{
   $('#logs').hide();
   $('#getWeather').hide()
   $('#signUp').fadeIn()
-  $('.loading').fadeOut()
+ 
   // initialize client
   client = await Ae.Aepp()
 
@@ -191,6 +191,7 @@ window.addEventListener('load', async() =>{
   console.log("Printing to console")
 
   for (let i = 1; i <= length; i++) {
+    
     user = await callStatic('getUser', [i])
     UserArray.push({
       userAddress : user.callerAddress,
@@ -205,7 +206,7 @@ window.addEventListener('load', async() =>{
   }
 
   renderUsers();
-  $('#logs').fadeIn();
+
 
   // hide and show necessary divs
   
@@ -214,7 +215,7 @@ window.addEventListener('load', async() =>{
   console.log("THis is printing out client", client)
   userAddress =  client.address 
   console.log("Users Address", userAddress)
-
+  $('.loading').fadeOut()
 
 
 }
