@@ -201,7 +201,7 @@ cityForm.addEventListener('submit',async(e) => {
   
   // prevent default action
   $('.loading').fadeIn()
-  // e.preventDefault();
+  e.preventDefault();
 
 
   
