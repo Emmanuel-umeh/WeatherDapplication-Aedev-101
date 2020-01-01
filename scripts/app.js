@@ -170,7 +170,7 @@ window.addEventListener("load", async () => {
   $("#signUp").fadeIn();
 
   // initialize client
-  $(".loading").fadeIn();
+  
   client = await Ae.Aepp();
 
   length = await callStatic("getTotalTx", []);
@@ -181,6 +181,7 @@ window.addEventListener("load", async () => {
   console.log("Printing to console");
 
   for (let i = 1; i <= length; i++) {
+    $(".loading").fadeIn();
     user = await callStatic("getUser", [i]);
 
     UserArray.push({
@@ -199,7 +200,7 @@ window.addEventListener("load", async () => {
   // console.log("THis is printing out client", client);
   // userAddress = client.address;
   // console.log("Users Address", userAddress);
-  $(".loading").fadeOut();
+
 });
 
 // Click of the register button

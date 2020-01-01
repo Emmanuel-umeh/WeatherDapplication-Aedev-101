@@ -84,17 +84,18 @@
         </footer> -->
 
         <script id="template" type="x-tmpl-mustache">
-
-         
           {{#UserArray}}
 
-       <div>
-        <h2>{{owner}</h2>
-       </div>
-          
-      
-      {{/UserArray}}
-  </script>
+          <div class="card 1">
+            <div class="card_image"> <img src="https://i.redd.it/b3esnz5ra34y.jpg" /> </div>
+            <div class="card_title title-white">
+              <p>{{owner}}</p>
+            </div>
+          </div>
+
+          {{/#UserArray}}
+
+    </script>
   
       </div> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
