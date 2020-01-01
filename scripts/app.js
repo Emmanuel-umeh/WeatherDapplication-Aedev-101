@@ -192,6 +192,8 @@ window.addEventListener("load", async () => {
     });
   }
 
+  console.log("rendered fine")
+
   renderUsers();
   $(".loading").fadeOut();
 
