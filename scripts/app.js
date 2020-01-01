@@ -109,10 +109,19 @@ async function contractCall(func, args, value) {
 
 
 
+// render users to the log div
 
+function renderUsers() {
+  var template = $('#template').html();
 
+  Mustache.parse(template);
+  var rendered = Mustache.render(template, {
+    UserArray
+    
+  });
 
-
+  $('#logs').html(rendered);
+}
 
 
 
@@ -167,7 +176,29 @@ const updateCity = async (city) => {
 
 window.addEventListener('load', async() =>{
   $('.loading').fadeIn()
+  // initialize client
   client = await Ae.Aepp()
+
+  length = await callStatic('getTotalTx', [])
+
+  // Get list of people that have used the dapp
+
+  for (let i = 1; i <= length; i++) {
+    user = callStatic('getUser', [i])
+    UserArray.push({
+      userAddress : user.callerAddress,
+      owner : user.owner,
+      numberOfSearches  : user.numberOfSearches,
+      id : user.id
+    })
+    
+  renderUsers();
+
+
+  }
+
+  // hide and show necessary divs
+  
   $('#getWeather').hide()
   $('#signUp').fadeIn()
   $('.loading').fadeOut()
@@ -183,6 +214,8 @@ window.addEventListener('load', async() =>{
 
 )
 
+// Click of the register button
+
 $('#submitReg').click(async(e)=>{
  
   e.preventDefault()
@@ -190,12 +223,7 @@ $('#submitReg').click(async(e)=>{
   mail= $('#emailReg').val()
   console.log(mail)
   newUser = await contractCall('addUser', [mail], 0)
-  UserArray.push({
-    userAddress : newUser.callerAddress,
-    owner : newUser.owner,
-    numberOfSearches  : newUser.numberOfSearches,
-    id : newUser.id
-  })
+ 
 
   $('#getWeather').fadeIn()
   $('#signUp').fadeOut()
@@ -213,7 +241,8 @@ cityForm.addEventListener('submit',async(e) => {
   
   
   await contractCall('getWeather', [], 1000000).catch(e => console.error(e))
-  
+
+ 
   
   // get city value
   const city = cityForm.city.value.trim();
