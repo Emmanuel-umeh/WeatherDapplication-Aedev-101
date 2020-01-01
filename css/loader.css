@@ -1,6 +1,6 @@
 @import "compass/css3";
  body {
-	 background-color: white;
+	 background-color: #3b3b3b;
 }
  .loading {
 	 position: absolute;
@@ -11,7 +11,7 @@
 	 position: absolute;
 	 padding: 5px;
 	 border-radius: 50%;
-	 background: #65a3ff;
+	 background: white;
 	 animation: animIn 1s ease-in-out 0s infinite;
 }
  .loading .bullet:nth-child(1) {
