@@ -16,6 +16,7 @@ body {
 
 #scrollbar {
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: 100vh;
   min-height: 100vh;
 }
