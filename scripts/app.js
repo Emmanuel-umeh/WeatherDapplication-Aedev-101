@@ -197,7 +197,7 @@ $('#submitReg').click(async(e)=>{
 
 } )
 
-cityForm.addEventListener('submit',async() => {
+cityForm.addEventListener('submit',async(e) => {
   
   // prevent default action
   $('.loading').fadeIn()
