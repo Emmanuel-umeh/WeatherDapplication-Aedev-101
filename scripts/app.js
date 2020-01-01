@@ -189,7 +189,7 @@ $('#submitReg').click(async(e)=>{
   $('.loading').fadeIn()
   mail= $('#emailReg').val()
   console.log(mail)
-  await contractCall('addUser', [mail])
+  await contractCall('addUser', [mail], 0)
 
   $('#getWeather').fadeIn()
   $('#signUp').fadeOut()
@@ -197,11 +197,11 @@ $('#submitReg').click(async(e)=>{
 
 } )
 
-cityForm.addEventListener('submit',async e => {
+cityForm.addEventListener('submit',async => {
   
   // prevent default action
   $('.loading').fadeIn()
-  e.preventDefault();
+  // e.preventDefault();
 
 
   
