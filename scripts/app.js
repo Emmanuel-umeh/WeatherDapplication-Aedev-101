@@ -210,6 +210,7 @@ window.addEventListener("load", async () => {
 
 $("#submitReg").click(async e => {
   e.preventDefault();
+  $("#logs").fadeOut();
   $(".loading").fadeIn();
   mail = $("#emailReg").val();
   console.log(mail);
