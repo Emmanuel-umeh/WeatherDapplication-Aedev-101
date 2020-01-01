@@ -190,6 +190,7 @@ window.addEventListener("load", async () => {
       numberOfSearches: user.numberOfSearches,
       id: user.id
     });
+    console.log("rendered")
   }
 
   console.log("rendered fine")
