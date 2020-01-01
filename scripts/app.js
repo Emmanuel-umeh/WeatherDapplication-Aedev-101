@@ -75,20 +75,18 @@ payable contract Weather =
 
 const contractAddress = "ct_8mEmWCAsM2QFSBMJ8DQJcuRXCoPYnRrsJ9cXDhNJ6NXFwWcLm";
 var client = null;
-UserArray = []
-
-
-
+UserArray = [];
 
 async function callStatic(func, args) {
-
   const contract = await client.getContractInstance(contractSource, {
     contractAddress
   });
 
-  const calledGet = await contract.call(func, args, {
-    callStatic: true
-  }).catch(e => console.error(e));
+  const calledGet = await contract
+    .call(func, args, {
+      callStatic: true
+    })
+    .catch(e => console.error(e));
 
   const decodedGet = await calledGet.decode().catch(e => console.error(e));
 
@@ -100,43 +98,37 @@ async function contractCall(func, args, value) {
     contractAddress
   });
   //Make a call to write smart contract func, with aeon value input
-  const calledSet = await contract.call(func, args, {
-    amount: value
-  }).catch(e => console.error(e));
+  const calledSet = await contract
+    .call(func, args, {
+      amount: value
+    })
+    .catch(e => console.error(e));
 
   return calledSet;
 }
 
-
-
 // render users to the log div
 
 function renderUsers() {
-  let template = $('#template').html();
+  let template = $("#template").html();
 
   Mustache.parse(template);
 
-  var rendered = Mustache.render(template, {UserArray});
+  var rendered = Mustache.render(template, { UserArray });
 
-  $('#logs').html(rendered);
+  $("#logs").html(rendered);
 
-  console.log("logs rendered")
+  console.log("logs rendered");
 }
 
-
-
-
-
-
-
 // Targets
-const cityForm = document.querySelector('form');
-const card = document.querySelector('.card');
-const details = document.querySelector('.details');
-const time = document.querySelector('img.time');
-const icon = document.querySelector('.icon img');
+const cityForm = document.querySelector("form");
+const card = document.querySelector(".card");
+const details = document.querySelector(".details");
+const time = document.querySelector("img.time");
+const icon = document.querySelector(".icon img");
 
-const updateUI = (data) => {
+const updateUI = data => {
   // destructure properties
   const { cityDets, weather } = data;
 
@@ -152,115 +144,90 @@ const updateUI = (data) => {
 
   // update the night/day & icon images
   const iconSrc = `img/icons/${weather.WeatherIcon}.svg`;
-  icon.setAttribute('src', iconSrc);
-  
-  const timeSrc = weather.IsDayTime ? 'img/day.svg' : 'img/night.svg';
-  time.setAttribute('src', timeSrc);
+  icon.setAttribute("src", iconSrc);
+
+  const timeSrc = weather.IsDayTime ? "img/day.svg" : "img/night.svg";
+  time.setAttribute("src", timeSrc);
 
   // remove the d-none class if present
-  if(card.classList.contains('d-none')){
-    card.classList.remove('d-none');
+  if (card.classList.contains("d-none")) {
+    card.classList.remove("d-none");
   }
 };
 
-const updateCity = async (city) => {
-  $('.loading').fadeIn()
+const updateCity = async city => {
+  $(".loading").fadeIn();
   const cityDets = await getCity(city);
   const weather = await getWeather(cityDets.Key);
-  $('.loading').fadeOut()
+  $(".loading").fadeOut();
   return { cityDets, weather };
-  
- 
-
 };
 
-window.addEventListener('load', async() =>{
-  $('.loading').fadeIn()
-  $('#logs').hide();
-  $('#getWeather').hide()
-  $('#signUp').fadeIn()
- 
-  // initialize client
-  client = await Ae.Aepp()
+window.addEventListener("load", async () => {
+  $(".loading").fadeIn();
+  $("#logs").hide();
+  $("#getWeather").hide();
+  $("#signUp").fadeIn();
 
-  length = await callStatic('getTotalTx', [])
-  console.log(length)
+  // initialize client
+  $(".loading").fadeIn();
+  client = await Ae.Aepp();
+
+  length = await callStatic("getTotalTx", []);
+  console.log(length);
 
   // Get list of people that have used the dapp
 
-  console.log("Printing to console")
+  console.log("Printing to console");
 
   for (let i = 1; i <= length; i++) {
-    $('.loading').fadeIn()
-
-    
-    user = await callStatic('getUser', [i]);
+    user = await callStatic("getUser", [i]);
 
     UserArray.push({
-      userAddress : user.callerAddress,
-      owner : user.owner,
-      numberOfSearches  : user.numberOfSearches,
-      id : user.id
-    })
+      userAddress: user.callerAddress,
+      owner: user.owner,
+      numberOfSearches: user.numberOfSearches,
+      id: user.id
+    });
+  }
 
-     }
-     
-    renderUsers();
-    $('.loading').fadeOut()
-
- 
-
+  renderUsers();
+  $(".loading").fadeOut();
 
   // hide and show necessary divs
-  
 
-
-  console.log("THis is printing out client", client)
-  userAddress =  client.address 
-  console.log("Users Address", userAddress)
-  $('.loading').fadeOut()
-
-
-}
-
-
-)
+  // console.log("THis is printing out client", client);
+  // userAddress = client.address;
+  // console.log("Users Address", userAddress);
+  $(".loading").fadeOut();
+});
 
 // Click of the register button
 
-$('#submitReg').click(async(e)=>{
- 
-  e.preventDefault()
-  $('.loading').fadeIn()
-  mail= $('#emailReg').val()
-  console.log(mail)
-  newUser = await contractCall('addUser', [mail], 0)
- 
+$("#submitReg").click(async e => {
+  e.preventDefault();
+  $(".loading").fadeIn();
+  mail = $("#emailReg").val();
+  console.log(mail);
+  newUser = await contractCall("addUser", [mail], 0);
 
-  $('#getWeather').fadeIn()
-  $('#signUp').fadeOut()
-  $('.loading').fadeOut()
+  $("#getWeather").fadeIn();
+  $("#signUp").fadeOut();
+  $(".loading").fadeOut();
+});
 
-} )
-
-cityForm.addEventListener('submit',async(e) => {
-  
+cityForm.addEventListener("submit", async e => {
   // prevent default action
-  $('.loading').fadeIn()
-  e.preventDefault()
+  $(".loading").fadeIn();
+  e.preventDefault();
 
+  await contractCall("getWeather", [], 1000000).catch(e => console.error(e));
 
-  
-  
-  await contractCall('getWeather', [], 1000000).catch(e => console.error(e))
-
- 
-  
   // get city value
   const city = cityForm.city.value.trim();
   cityForm.reset();
 
-  console.log(" this is city", city)
+  console.log(" this is city", city);
 
   // update the ui with new city
   updateCity(city)
@@ -268,16 +235,14 @@ cityForm.addEventListener('submit',async(e) => {
     .catch(err => console.log(err));
 
   // set local storage
-  localStorage.setItem('city', city);
-  $('.loading').fadeOut()
-
+  localStorage.setItem("city", city);
+  $(".loading").fadeOut();
 });
 
-if(localStorage.getItem('city')){
-  $('.loading').fadeIn()
-  updateCity(localStorage.getItem('city'))
+if (localStorage.getItem("city")) {
+  $(".loading").fadeIn();
+  updateCity(localStorage.getItem("city"))
     .then(data => updateUI(data))
     .catch(err => console.log(err));
-    $('.loading').fadeOut()
+  $(".loading").fadeOut();
 }
-
