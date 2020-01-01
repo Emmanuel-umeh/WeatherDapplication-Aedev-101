@@ -194,7 +194,8 @@ window.addEventListener('load', async() =>{
     $('.loading').fadeIn()
 
     
-    user = await callStatic('getUser', [i])
+    user = await callStatic('getUser', [i]);
+    
     UserArray.push({
       userAddress : user.callerAddress,
       owner : user.owner,
@@ -202,9 +203,10 @@ window.addEventListener('load', async() =>{
       id : user.id
     })
 
+     }
+     
     renderUsers();
     $('.loading').fadeOut()
-     }
 
  
 
